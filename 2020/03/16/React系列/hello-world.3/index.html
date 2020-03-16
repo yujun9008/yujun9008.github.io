@@ -8,6 +8,8 @@
 	<!-- title -->
 	
 	<title>
+	
+		小程序开发中的一些总结 | 
 	 
 	鱻鱼
 	</title>
@@ -161,7 +163,7 @@
 							</ul>
 			
 							<ul>
-								<li class="file">
+								<li class="file active">
 									<a href="/2020/03/16/React%E7%B3%BB%E5%88%97/hello-world.3/">
 										hello-world.3
 									</a>
@@ -262,34 +264,84 @@
 
 	<!-- 引入正文 -->
 	<div id="content">
-		<div id="index">
+		<h1 id="article-title">
+
+	hello-world.3
+</h1>
+<div class="article-meta">
 	
-		<div class="index-li">
-			<a href="/2019/12/29/React/hello-world/">
-				<h2 class="index-title">
-					hello-world
-				</h2>
-				<div class="index-brief">
-					小程序推出web-view属性后，可以像客户端一样，直接在小程序中嵌入H5页面，极大方便了小程序开发，同时解决了小程序打包后体积较大问题，也让那些诟病小程序太封闭的同学看到希望
-web-view使用web-view组件是一个可以用来承载网页的容器，会自动铺满整个小程序页面；
-主要属性：src：网站的
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2019-12-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-	
-	<div id="index-paginator">
-		
-	</div>
+	<span>Jun</span>
+	<span>2020-03-16 20:46:33</span>
+    
+		<div id="article-categories">
+            
+		</div>
+    
 </div>
 
+<div id="article-content">
+	<p>小程序推出web-view属性后，可以像客户端一样，直接在小程序中嵌入H5页面，极大方便了小程序开发，同时解决了小程序打包后体积较大问题，也让那些诟病小程序太封闭的同学看到希望</p>
+<p>web-view使用<br>web-view组件是一个可以用来承载网页的容器，会自动铺满整个小程序页面；</p>
+<p>主要属性：src：网站的url，指向网页的链接。需登录小程序管理后台配置域名白名单。</p>
+<p>bindmessage：网页向小程序 postMessage 时，会在特定时机（小程序后退、组件销毁、分享）触发并收到消息。e.detail = { data }</p>
+<!-- wxml -->
+<!-- 指向业务H5，目前在小程序native端不处理登陆态，只在H5中很使用种cookie方式登陆 -->
+<p><web-view src="https://www.icourse163.org/h5/login.htm" ></web-view><br>通信<br>1.H5通知native</p>
+<p>这个比较常见，通过jssdk提供的api向主要用于分享传参，页面跳转等。</p>
+<p>举个例子，在页面需要分享的时候，一般我们会给native传递分享的标题，链接等</p>
+<p>H5端：</p>
+<p>wx.miniProgram.postMessage({<br>    data: {<br>        title: ‘分享标题’,<br>        url: ‘xxxx’<br>    }<br>  });<br>native端：</p>
+<p><web-view src="" bindmessage="bindGetMsg"></web-view></p>
+<p>Page({<br>    bindGetMsg: funtion(event){<br>        // event.detail<br>        // do something<br>    }<br>)<br>需要注意的是，bindmessge的回调函数不是实时触发的，该方法只在小程序后退、组件销毁、分享时触发。</p>
+<p>2.native通知H5<br>native端</p>
+<p><web-view src="https://www.icourse163.org/h5/teacher/currentClassroom/26001.htm#id=123"></web-view><br>H5端接收</p>
+<p>window.addEventListener(“hashchange”, () =&gt; {<br>  //do something<br>}, false);</p>
+
+</div>
+
+
+    <div class="post-guide">
+        <div class="item left">
+            
+              <a href="/2020/03/16/React%E7%B3%BB%E5%88%97/hello-world.4/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  hello-world.4
+              </a>
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/2020/03/16/React%E7%B3%BB%E5%88%97/hello-world.2/">
+                hello-world.2
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
+
+
+
+	<div id="vcomments"></div>
+
+
+<script>
+	
+		// 评论
+		new Valine({
+			av: AV,
+			el: '#vcomments',
+			notify: false,
+			verify: false,
+			path: window.location.pathname,
+			appId: '',
+			appKey: '',
+			placeholder: '请输入评论',
+			avatar: 'retro',
+			recordIP: false
+		})
+	
+	
+</script>
 	</div>
 	<div id="footer">
 	<p>

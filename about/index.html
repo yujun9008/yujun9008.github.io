@@ -8,6 +8,8 @@
 	<!-- title -->
 	
 	<title>
+	
+		关于 | 
 	 
 	鱻鱼
 	</title>
@@ -262,34 +264,47 @@
 
 	<!-- 引入正文 -->
 	<div id="content">
-		<div id="index">
+		<h1 id="article-title">
+
+	关于
+</h1>
+<div class="article-meta">
 	
-		<div class="index-li">
-			<a href="/2019/12/29/React/hello-world/">
-				<h2 class="index-title">
-					hello-world
-				</h2>
-				<div class="index-brief">
-					小程序推出web-view属性后，可以像客户端一样，直接在小程序中嵌入H5页面，极大方便了小程序开发，同时解决了小程序打包后体积较大问题，也让那些诟病小程序太封闭的同学看到希望
-web-view使用web-view组件是一个可以用来承载网页的容器，会自动铺满整个小程序页面；
-主要属性：src：网站的
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2019-12-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-	
-	<div id="index-paginator">
-		
-	</div>
+	<span>Jun</span>
+	<span>2020-03-16 20:56:43</span>
+    
 </div>
 
+<div id="article-content">
+	<p>程序员</p>
+<p><br/><br/><br/><br/><br/><br/><br><br/><br/><br/><br/><br/><br/></p>
+
+</div>
+
+
+
+
+	<div id="vcomments"></div>
+
+
+<script>
+	
+		// 评论
+		new Valine({
+			av: AV,
+			el: '#vcomments',
+			notify: false,
+			verify: false,
+			path: window.location.pathname,
+			appId: '',
+			appKey: '',
+			placeholder: '请输入评论',
+			avatar: 'retro',
+			recordIP: false
+		})
+	
+	
+</script>
 	</div>
 	<div id="footer">
 	<p>
