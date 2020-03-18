@@ -9,7 +9,7 @@
 	
 	<title>
 	
-		关于 | 
+		理解React中setState的&#39;异步&#39; | 
 	 
 	鱻鱼
 	</title>
@@ -118,7 +118,7 @@
 									</a>
 									
 							<ul>
-								<li class="file">
+								<li class="file active">
 									<a href="/2020/03/17/React%E6%AF%8F%E6%97%A5%E6%9B%B4%E6%96%B0/%E7%90%86%E8%A7%A3React%E4%B8%ADsetState%E7%9A%84%E5%BC%82%E6%AD%A5/">
 										理解React中setState的异步
 									</a>
@@ -138,21 +138,62 @@
 	<div id="content">
 		<h1 id="article-title">
 
-	关于
+	理解React中setState的异步
 </h1>
 <div class="article-meta">
 	
 	<span>Jun</span>
-	<span>2020-03-16 20:56:43</span>
+	<span>2020-03-17 19:45:51</span>
+    
+		<div id="article-categories">
+            
+		</div>
     
 </div>
 
 <div id="article-content">
-	<p>程序员</p>
-<p><br/><br/><br/><br/><br/><br/><br><br/><br/><br/><br/><br/><br/></p>
+	<blockquote>
+<p>React中setState给人的感觉是异步的，其实他这个异步并不是真的异步</p>
+</blockquote>
+<br>
+
+<h3 id="setState调用方式"><a href="#setState调用方式" class="headerlink" title="setState调用方式"></a>setState调用方式</h3><p>总的来说setState有三种调用方式</p>
+<ul>
+<li><p>直接更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.setState(&#123; count: this.state.count + 1 &#125;);</span><br><span class="line">this.setState(&#123; count: this.state.count + 2&#125;);</span><br><span class="line">&#x2F;&#x2F;前面两行setState会合并，直接第一行无效</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回调函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.setState(&#123; count: this.state.count + 1 &#125;, () &#x3D;&gt; &#123;</span><br><span class="line">  console.log( this.state.count); &#x2F;&#x2F; 这里直接拿到‘异步’更新后的值</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>绑定函数</p>
+<blockquote>
+<p>React可以接受一个函数作为参数，函数的首参就是上一次state</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">this.setState(prevState &#x3D;&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    count: prevState.count + 1</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, ()&#x3D;&gt;&#123;</span><br><span class="line">  console.log(&#39;last console: &#39;+ this.state.count)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><a href="https://codesandbox.io/s/xpk8qqx9pz?expanddevtools=1" target="_blank" rel="noopener">demo</a></p>
+</li>
+</ul>
+<h3 id="setState的异步"><a href="#setState的异步" class="headerlink" title="setState的异步"></a>setState的异步</h3><p>为啥说不是真的异步呢，以为setState只在React生命周期函数，自定义事件等相关函数内执行才是异步，但在setTimeout,addEvent我们自定义事件中表现是直接更新的，具体原因是</p>
+<blockquote>
+<p>React中会去维护一个标识（isBatchingUpdates），判断是直接更新还是先暂存state进队列。setTimeout以及原生事件都会直接去更新state，因此可以立即得到最新state。而合成事件和React生命周期函数中，是受React控制的，其会将isBatchingUpdates设置为 true，从而走的是类似异步的那一套。</p>
+</blockquote>
+<p><a href="https://codesandbox.io/s/k2jwvz03m3?expanddevtools=1" target="_blank" rel="noopener">demo请点击</a></p>
 
 </div>
 
+
+    <div class="post-guide">
+        <div class="item left">
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/2020/03/16/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/hello-world/">
+                hello-world
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
 
 
 
