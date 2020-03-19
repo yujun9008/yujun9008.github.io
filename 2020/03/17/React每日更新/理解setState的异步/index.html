@@ -99,8 +99,8 @@
 									
 							<ul>
 								<li class="file">
-									<a href="/2020/03/16/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/hello-world/">
-										hello-world
+									<a href="/2020/03/16/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0throttle/">
+										节流函数throttle
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
@@ -119,8 +119,8 @@
 									
 							<ul>
 								<li class="file active">
-									<a href="/2020/03/17/React%E6%AF%8F%E6%97%A5%E6%9B%B4%E6%96%B0/%E7%90%86%E8%A7%A3React%E4%B8%ADsetState%E7%9A%84%E5%BC%82%E6%AD%A5/">
-										理解React中setState的异步
+									<a href="/2020/03/17/React%E6%AF%8F%E6%97%A5%E6%9B%B4%E6%96%B0/%E7%90%86%E8%A7%A3setState%E7%9A%84%E5%BC%82%E6%AD%A5/">
+										理解setState的异步
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
@@ -138,7 +138,7 @@
 	<div id="content">
 		<h1 id="article-title">
 
-	理解React中setState的异步
+	理解setState的异步
 </h1>
 <div class="article-meta">
 	
@@ -172,7 +172,7 @@
 <p><a href="https://codesandbox.io/s/xpk8qqx9pz?expanddevtools=1" target="_blank" rel="noopener">demo</a></p>
 </li>
 </ul>
-<h3 id="setState的异步"><a href="#setState的异步" class="headerlink" title="setState的异步"></a>setState的异步</h3><p>为啥说不是真的异步呢，以为setState只在React生命周期函数，自定义事件等相关函数内执行才是异步，但在setTimeout,addEvent我们自定义事件中表现是直接更新的，具体原因是</p>
+<h3 id="setState的异步"><a href="#setState的异步" class="headerlink" title="setState的异步"></a>setState的异步</h3><p>为啥说不是真的异步呢，因为setState只在React生命周期函数，自定义事件等相关函数内执行才是异步，但在setTimeout,addEvent我们自定义事件中表现是直接更新的，具体原因是</p>
 <blockquote>
 <p>React中会去维护一个标识（isBatchingUpdates），判断是直接更新还是先暂存state进队列。setTimeout以及原生事件都会直接去更新state，因此可以立即得到最新state。而合成事件和React生命周期函数中，是受React控制的，其会将isBatchingUpdates设置为 true，从而走的是类似异步的那一套。</p>
 </blockquote>
@@ -187,8 +187,8 @@
         </div>
         <div class="item right">
             
-              <a href="/2020/03/16/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/hello-world/">
-                hello-world
+              <a href="/2020/03/16/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0throttle/">
+                节流函数throttle
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
