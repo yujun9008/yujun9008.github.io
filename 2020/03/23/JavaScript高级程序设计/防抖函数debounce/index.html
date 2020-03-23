@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	
+	<!-- title -->
+	
+	<title>
+	
+		throttle | 
+	 
+	鱻鱼
+	</title>
+	
+	<!-- keywords,description -->
+	 
+
+	<!-- favicon -->
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+	
+  
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+	
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/darcula.min.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+	
+		
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+
+		
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+	
+	
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+	<header id="header">
+    <a id="title" href="/" class="logo">鱻鱼</a>
+
+	<ul id="menu">
+		<li class="menu-item">
+			<a href="/about" class="menu-item-link">ABOUT</a>
+		</li>
+		
+		<li class="menu-item">
+			<a href="https://github.com/wujun234/uid-generator-spring-boot-starter" class="menu-item-link" target="_blank">
+				UidGenerator
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="https://github.com/yujun9008" class="menu-item-link" target="_blank">
+				<i class="fa fa-github fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+</header>
+
+	
+<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="text" placeholder="search...">
+		<div id="tree">
+			
+
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										JavaScript高级程序设计
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2020/03/16/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0throttle/">
+										节流函数throttle
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file active">
+									<a href="/2020/03/23/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0debounce/">
+										防抖函数debounce
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										React每日更新
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2020/03/17/React%E6%AF%8F%E6%97%A5%E6%9B%B4%E6%96%B0/%E7%90%86%E8%A7%A3setState%E7%9A%84%E5%BC%82%E6%AD%A5/">
+										理解setState的异步
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<!-- 引入正文 -->
+	<div id="content">
+		<h1 id="article-title">
+
+	防抖函数debounce
+</h1>
+<div class="article-meta">
+	
+	<span>Jun</span>
+	<span>2020-03-23 22:32:58</span>
+    
+		<div id="article-categories">
+            
+		</div>
+    
+</div>
+
+<div id="article-content">
+	<p>防抖函数 debounce 指的是某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次。假如我们设置了一个等待时间 3 秒的函数，在这 3 秒内如果遇到函数调用请求就重新计时 3 秒，直至新的 3 秒内没有函数调用请求，此时执行函数，不然就以此类推重新计时。</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>实现原理就是利用定时器，函数第一次执行时设定一个定时器，之后调用时发现已经设定过定时器就清空之前的定时器，并重新设定一个新的定时器，如果存在没有被清空的定时器，当定时器计时结束后触发函数执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn,wait&#x3D;3000)&#123;</span><br><span class="line">  let timer &#x3D; null;</span><br><span class="line">  return function(...args)&#123;</span><br><span class="line">    if(timer) clearTimeout(timer);</span><br><span class="line">    timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">        fn.apply(this, args)</span><br><span class="line">    &#125;, wait)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果想第一次促发回调，需要改写上函数，增加第一次是否促发执行功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn,wait&#x3D;3000, immediate)&#123;</span><br><span class="line">  let timer &#x3D; null;</span><br><span class="line">  return function(...args)&#123;</span><br><span class="line">    if(timer) clearTimeout(timer);</span><br><span class="line"></span><br><span class="line">    if(immediate &amp;&amp; !timer)&#123;</span><br><span class="line">      fn.apply(this, args)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">        fn.apply(this, args)</span><br><span class="line">    &#125;, wait)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现原理比较简单，判断传入的 immediate 是否为 true，另外需要额外判断是否是第一次执行防抖函数，判断依旧就是 timer 是否为空，所以只要 immediate &amp;&amp; !timer 返回 true 就执行 fn 函数，即 fn.apply(this, args)。</p>
+<h3 id="加强版-throttle"><a href="#加强版-throttle" class="headerlink" title="加强版 throttle"></a>加强版 throttle</h3><p>现在考虑一种情况，如果用户的操作非常频繁，不等设置的延迟时间结束就进行下次操作，会频繁的清除计时器并重新生成，所以函数 fn 一直都没办法执行，导致用户操作迟迟得不到响应。</p>
+<p>有一种思想是将「节流」和「防抖」合二为一，变成加强版的节流函数，关键点在于「 wait 时间内，可以重新生成定时器，但只要 wait 的时间到了，必须给用户一个响应」。这种合体思路恰好可以解决上面提出的问题。</p>
+<p>给出合二为一的代码之前先来回顾下 throttle 函数，上一小节中有详细的介绍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; fn 是需要执行的函数</span><br><span class="line">&#x2F;&#x2F; wait 是时间间隔</span><br><span class="line">const throttle &#x3D; (fn, wait &#x3D; 50) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F; 上一次执行 fn 的时间</span><br><span class="line">  let previous &#x3D; 0</span><br><span class="line">  &#x2F;&#x2F; 将 throttle 处理结果当作函数返回</span><br><span class="line">  return function(...args) &#123;</span><br><span class="line">    &#x2F;&#x2F; 获取当前时间，转换成时间戳，单位毫秒</span><br><span class="line">    let now &#x3D; +new Date()</span><br><span class="line">    &#x2F;&#x2F; 将当前时间和上一次执行函数的时间进行对比</span><br><span class="line">    &#x2F;&#x2F; 大于等待时间就把 previous 设置为当前时间并执行函数 fn</span><br><span class="line">    if (now - previous &gt; wait) &#123;</span><br><span class="line">      previous &#x3D; now</span><br><span class="line">      fn.apply(this, args)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结合 throttle 和 debounce 代码，加强版节流函数 throttle 如下，新增逻辑在于当前触发时间和上次触发的时间差小于时间间隔时，设立一个新的定时器，相当于把 debounce 代码放在了小于时间间隔部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; fn 是需要节流处理的函数</span><br><span class="line">&#x2F;&#x2F; wait 是时间间隔</span><br><span class="line">function throttle(fn, wait) &#123;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; previous 是上一次执行 fn 的时间</span><br><span class="line">  &#x2F;&#x2F; timer 是定时器</span><br><span class="line">  let previous &#x3D; 0, timer &#x3D; null</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; 将 throttle 处理结果当作函数返回</span><br><span class="line">  return function (...args) &#123;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; 获取当前时间，转换成时间戳，单位毫秒</span><br><span class="line">    let now &#x3D; +new Date()</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; ------ 新增部分 start ------ </span><br><span class="line">    &#x2F;&#x2F; 判断上次触发的时间和本次触发的时间差是否小于时间间隔</span><br><span class="line">    if (now - previous &lt; wait) &#123;</span><br><span class="line">    	 &#x2F;&#x2F; 如果小于，则为本次触发操作设立一个新的定时器</span><br><span class="line">       &#x2F;&#x2F; 定时器时间结束后执行函数 fn </span><br><span class="line">       if (timer) clearTimeout(timer)</span><br><span class="line">       timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">          previous &#x3D; now</span><br><span class="line">        	fn.apply(this, args)</span><br><span class="line">        &#125;, wait)</span><br><span class="line">    &#x2F;&#x2F; ------ 新增部分 end ------ </span><br><span class="line">      </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">       &#x2F;&#x2F; 第一次执行</span><br><span class="line">       &#x2F;&#x2F; 或者时间间隔超出了设定的时间间隔，执行函数 fn</span><br><span class="line">       previous &#x3D; now</span><br><span class="line">       fn.apply(this, args)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div>
+
+
+    <div class="post-guide">
+        <div class="item left">
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/2020/03/17/React%E6%AF%8F%E6%97%A5%E6%9B%B4%E6%96%B0/%E7%90%86%E8%A7%A3setState%E7%9A%84%E5%BC%82%E6%AD%A5/">
+                理解setState的异步
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
+
+
+
+	<div id="vcomments"></div>
+
+
+<script>
+	
+		// 评论
+		new Valine({
+			av: AV,
+			el: '#vcomments',
+			notify: false,
+			verify: false,
+			path: window.location.pathname,
+			appId: '',
+			appKey: '',
+			placeholder: '请输入评论',
+			avatar: 'retro',
+			recordIP: false
+		})
+	
+	
+</script>
+	</div>
+	<div id="footer">
+	<p>
+	©2017-<span id="footerYear"></span> 
+	<a href="/">Jun</a> 
+	
+	
+		|
+		<span id="busuanzi_container_site_pv">
+			pv
+			<span id="busuanzi_value_site_pv"></span>
+		</span>
+		|
+		<span id="busuanzi_container_site_uv"> 
+			uv
+			<span id="busuanzi_value_site_uv"></span>
+		</span>
+	
+	<br>
+	Powered by <a href="//hexo.io" target="_blank">Hexo</a>
+	</p>
+</div>
+<script type="text/javascript"> 
+	document.getElementById('footerYear').innerHTML = new Date().getFullYear() + '';
+</script>
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+</body>
+</html>
