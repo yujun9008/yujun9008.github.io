@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-bbef864e","path":"/Teach/ChatGPT%20is%20at%20capacity%20right%20now.html","title":"","lang":"zh-CN","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1675685598000},"filePathRelative":"Teach/ChatGPT is at capacity right now.md"}');export{t as data};
